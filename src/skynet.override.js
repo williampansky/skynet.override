@@ -310,8 +310,14 @@ function addCSS(string) {
 		let taskProgress = document.querySelectorAll('.bs-component tr td:nth-child(8)');
 		for (let i = 0; i < taskProgress.length; i++) {
 			taskProgress[i].classList.add('task-progress')
-			taskProgress[i].querySelector('progress').setAttribute('uk-tooltip', 'duration: 20; delay: 0;');
 		}
+		
+		setTimeout(()=> {
+			let task_progress = document.querySelector('.task-progress progress');
+			for (let i=0; i < task_progress.length; i++)
+				task_progress[i].setAttribute('uk-tooltip', 'duration: 20; delay: 0;');
+		}, 400);
+		
 		
 		// -- 90% Complete
 		// @memberof progressTooltips
