@@ -3,6 +3,10 @@
 
 Styles and scripts powered by the [User JavaScript & CSS](https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld) Chrome extension to reconfigure the front-end of Skynet.
 
+## Notice
+
+The code found in this project _**does not**_, in any way, conflict with the original SVN repository. All JavaScript interaction is limited to front-end DOM manipulation; meaning it's tweaking the presentational aspect in a way anyone with Chrome devtools can do. It does not compromise or tap into the server, database, or other core aspects of Skynet. It's simply a visual (aesthetic) upgrade.
+
 ## Features
 
 Skynet.Override strives to provide a modern interface experience for the outdated front-end with help from the [UIkit](https://getuikit.com/) framework.
