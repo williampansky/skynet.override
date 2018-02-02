@@ -18,7 +18,7 @@ Skynet.Override strives to provide a modern interface experience for the outdate
 Quick and easy setup. 
 
 1. Install the [User JavaScript & CSS](https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld) Chrome extension.
-2. Download the [latest release's](https://github.com/williampansky/skynet.override/releases) `JSON` file.
+2. Download the [latest release](https://github.com/williampansky/skynet.override/releases), unzip it, and find the latest `JSON` file inside the `/dist` directory.
 3. Open the extension's options view and navigate to the _Settings > Backup_ section.
 4. Click the **Upload and apply** button, navigate to your downloaded `JSON` file and upload it _(confirm the pop-up alert)_.
 ![JSON Upload](assets/extension-screen-backup.jpg)
