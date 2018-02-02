@@ -1,4 +1,4 @@
-# Skynet.Override v0.1.0
+# Skynet.Override v0.1.2
 > _"Assuming direct control."_
 
 Styles and scripts powered by the [User JavaScript & CSS](https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld) Chrome extension to reconfigure the front-end of Skynet.
@@ -37,6 +37,11 @@ If you want to help out, feel free to edit the codebase (either via the `/src` d
 
 ## Versioning
 
+* v0.1.2 — February 2, 2018
+    * `FEATURE` Finished new resource modal implementation. New resources can now be added to the JSON array defined inside of @name resourcesList.
+    * `BUG FIX` General fixes.
+* v0.1.1 — January 31, 2018
+    * `BUG FIX` taskProgress call on js:315;
 * v0.1.0 — January 31, 2018
     * Initial beta release
     * Developed & tested in Chrome v63.0.3239.132 (Official Build) (64-bit).

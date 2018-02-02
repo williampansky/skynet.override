@@ -69,10 +69,22 @@ em { color: initial !important; }
 	padding: 0 0 0 1rem;
 }
 
-
-.live-results .heading {
+.live-results .heading,
+.live-results .heading a {
 	cursor: pointer;
-	background-color: #f8f8f8;
+	transition: 250ms ease-in-out;
+}
+
+.live-results .heading { background-color: #f8f8f8; }
+.live-results .heading a { color: #bbb; }
+
+.live-results .heading:hover,
+.live-results .heading:focus { background-color: #eee; }
+
+.live-results .heading:hover a,
+.live-results .heading:focus a {
+	color: #aaa;
+	text-decoration: none;
 }
 
 .live-results th br,
@@ -135,6 +147,10 @@ em { color: initial !important; }
 	.live-results tbody > tr > td:nth-child(4),
 	.live-results tbody > tr > td:nth-child(4) {
 		white-space: nowrap;
+	}
+	
+	.live-results > .uk-card-small.uk-card-body {
+		padding: 0;
 	}
 }
 
@@ -452,13 +468,14 @@ p:only-child {
 	display: inline-block;
 	line-height: 1.6;
 	letter-spacing: 0.15px;
-	padding: 0;
+	padding: 0 !important;
 }
 
 #tasklogs-table .sky-task .task-date {
 	font-family: 'Verdana', sans-serif;
-	font-size: .675rem;
-	line-height: 2.165;
+	font-size: .675rem !important;
+	line-height: 1.675 !important;
+	padding: 0 !important;
 }
 
 #tasklogs-table .total-hours {
@@ -873,6 +890,7 @@ td.hours:after {
 
 .uk-table th {
   font-size: .63rem !important;
+  letter-spacing: 0.05em;
   text-transform: uppercase !important;
   border-top: none !important;
   white-space: nowrap !important;
@@ -925,14 +943,17 @@ body {
   box-shadow: 0 0 30px rgba(69, 101, 173, 0.1);
 }
 
-#navigation .uk-offcanvas-bar .material-icons {
+#navigation .uk-offcanvas-bar .material-icons,
+#navigation .uk-offcanvas-bar .uk-icon {
 	width: 38px;
 	/*margin-right: .25rem;*/
 	opacity: 0.475;
 }
 
 #navigation .skynet-offcanvas-link:hover .material-icons,
-#navigation .skynet-offcanvas-link:focus .material-icons {
+#navigation .skynet-offcanvas-link:focus .material-icons,
+#navigation .skynet-offcanvas-link:hover .uk-icon,
+#navigation .skynet-offcanvas-link:focus .uk-icon {
 	color: #222;
 	opacity: 0.5275;
 }
@@ -1112,4 +1133,133 @@ body {
     	opacity: 1;
     	transform: translateY(0);
 	}
+}
+
+#resourcesList {
+	padding: 0;
+	position: relative;
+}
+
+#resourcesList:before {
+	content: '';
+	border-bottom: 1px solid #ececec;
+	background: linear-gradient(to top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 4%);
+	height: 100%;
+	width: 100%;
+	display: block;
+	position: fixed;
+	top: auto;
+	right: 0;
+	bottom: 70px;
+	left: 0;
+	z-index: 1;
+	pointer-events: none;
+}
+
+form[name="search-form"].uk-card {
+	border-radius: 0;
+}
+
+#modal-resources .uk-modal-header {
+	border-bottom: 0 !important;
+}
+
+.resource-item {
+	padding: 0 !important;
+}
+
+.resource-item:last-of-type {
+	margin-bottom: 35px !important;
+}
+
+.resource-item:hover, .resource-item:focus,
+.resource-item:hover a, .resource-item:focus a {
+	background-color: var(--color-primary);
+	color: #fff;
+	text-decoration: none;
+}
+
+.resource-item:hover .resource-description,
+.resource-item:focus .resource-description {
+	color: rgba(255, 255, 255, 0.5);
+	text-decoration: none;
+}
+
+.resource-link {
+	display: block;
+	padding: 20px 10px;
+/*	display: flex;*/
+/*	flex-flow: row nowrap;*/
+/*	align-items: center;*/
+/*	justify-content: space-between;*/
+}
+
+/*.resource-info-wrapper {*/
+/*	padding: 20px;*/
+/*}*/
+
+.resource-name {
+	/*font-size: 1.125rem !important;*/
+}
+
+.resource-description {
+	font-size: 0.75rem !important;
+}
+
+.resource-logo-wrapper {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	padding: 20px;
+}
+
+.resource-logo {
+	height: auto;
+	width: 45px;
+}
+
+.resource-item .no-content {
+	display: none;
+}
+
+#name-filter .show-items:not(#dashboarduserselect) {
+	display: none;
+}
+
+#myclients input {
+	display: none;
+}
+
+#myclients .add-item {
+	padding: 10px;
+}
+
+/*#navigation li:nth-child(10) {*/
+/*	position: fixed;*/
+/*	top: auto;*/
+/*	right: 0;*/
+/*	bottom: 0;*/
+/*	left: 0;*/
+/*}*/
+
+#navigation #issues,
+#navigation li:nth-child(10) {
+	border-bottom: 0;
+	background-color: var(--color-primary);
+}
+
+#navigation #issues:hover, #navigation #issues:focus {
+	background-color: var(--color-secondary);
+}
+
+#navigation #issues,
+#navigation #issues .uk-icon {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+#navigation #issues:hover, #navigation #issues:focus,
+#navigation #issues:hover .uk-icon, #navigation #issues:hover .uk-icon {
+	color: rgba(255, 255, 255, 0.875);
 }

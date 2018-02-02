@@ -252,9 +252,8 @@ function addCSS(string) {
 		 */
 		let empty = document.getElementsByClassName('.empty');
 		let emptyHeader = document.querySelector('tr[class="  default heading"]') || document.querySelector('tr[class="  info heading"]');
-		for (let i = 0; i < emptyHeader.length; i++) {
-			emptyHeader.style.display = 'none';
-		}
+		for (let i = 0; i < emptyHeader.length; i++)
+			emptyHeader[i].style.display = 'none';
 		
 		
 		/**
@@ -312,11 +311,9 @@ function addCSS(string) {
 			taskProgress[i].classList.add('task-progress')
 		}
 		
-		setTimeout(()=> {
-			let task_progress = document.querySelector('.task-progress progress');
-			for (let i=0; i < task_progress.length; i++)
-				task_progress[i].setAttribute('uk-tooltip', 'duration: 20; delay: 0;');
-		}, 400);
+		let task_progress = document.querySelectorAll('.bs-component tr td:nth-child(8) progress');
+		for (let i=0; i < task_progress.length; i++)
+			task_progress[i].setAttribute('uk-tooltip', 'duration: 20; delay: 0;');
 		
 		
 		// -- 90% Complete
@@ -920,21 +917,25 @@ function addCSS(string) {
 		 * Add and remove classes from search form buttons
 		 */
 		let submit = search.querySelector('input[type="submit"]');
-		submit.classList.add(
-			'uk-button', 
-			'uk-button-primary', 
-			'uk-button-small'
-		);
-		submit.classList.remove('button-bg');
+		if (typeof(submit) !== 'undefined' && submit !== null) {
+			submit.classList.add(
+				'uk-button', 
+				'uk-button-primary', 
+				'uk-button-small'
+			);
+			submit.classList.remove('button-bg');
+		}
 		
 		let clear = search.querySelector('input[value="Clear"]');
-		clear.classList.add(
-			'uk-button', 
-			'uk-button-primary', 
-			'uk-button-small',
-			'uk-float-right'
-		);
-		clear.classList.remove('button-bg');
+		if (typeof(clear) !== 'undefined' && clear !== null) {
+			clear.classList.add(
+				'uk-button', 
+				'uk-button-default', 
+				'uk-button-small',
+				'uk-float-right'
+			);
+			clear.classList.remove('button-bg');
+		}
 	}
 })();
 
@@ -1120,7 +1121,15 @@ function addCSS(string) {
 		let time		= document.getElementById('time-logged');
 		let	byFilter	= document.getElementById('to-by-filter');
 		
-		branding.classList.add('uk-navbar', 'uk-navbar-nav', 'uk-navbar-container', 'uk-navbar-transparent', 'uk-background-primary', 'uk-light');
+		branding.classList.add(
+			'uk-navbar', 
+			'uk-navbar-nav', 
+			'uk-navbar-container', 
+			'uk-navbar-transparent', 
+			'uk-background-primary', 
+			'uk-light',
+			'uk-flex-row-reverse'
+		);
 		list.classList.add('uk-navbar-left', 'uk-navbar-nav', 'uk-list', 'uk-margin-remove');
 		resBlock.style.display = 'none';
 		loggedIn.classList.add('uk-navbar-item');
@@ -1237,43 +1246,6 @@ function addCSS(string) {
 
 
 /**
- * Resources (usefule & relative external links) sidebar configuration.
- * 
- * @name resourcesList
- * @group globalElements
- */
-(()=> {
-	let element = document.querySelector('#branding .resources');
-	if (typeof(element) !== 'undefined' && element !== null) {
-		let button	= document.querySelector('#branding .resources');
-		let sidebar = button.getElementsByTagName('ul')[0];
-		let content = document.getElementById('content-wrapper');
-		let active	= 'resources-open';
-		
-		// force-prevent hash in URL
-		// note: e.preventDefault & return false didn't work
-		button.setAttribute('onclick', 'return false;');
-		
-		// add click functionality
-		button.addEventListener('click', (e)=> {
-			e.preventDefault;
-			
-			if (!sidebar.classList.contains(active)) {
-				sidebar.classList.add(active);
-				content.classList.add(active);
-			} else {
-				sidebar.classList.remove(active);
-				content.classList.remove(active);
-			}
-			
-			return false;
-		});
-	}
-})();
-
-
-
-/**
  * Apply .uk-* classes across a plethora of default elements.
  * 
  * @name applyClasses
@@ -1364,7 +1336,7 @@ function addCSS(string) {
 	 * 
 	 * @var radio = <input type="select" />
 	 */
-	let select = document.querySelectorAll('select');
+	let select = document.getElementsByTagName('select');
 	for (let i = 0; i < select.length; i++)
 		select[i].classList.add('uk-select');
 	
@@ -1449,59 +1421,179 @@ function addCSS(string) {
  * @link https://stackoverflow.com/a/8963716/8296677
  */
 (()=> {
-	let resourcesArray = `{
-	    'resource': [
-	        { name: 'Browserstack', url: 'http://www.browserstack.com' },
-	        { name: 'Catalyst Lab', 'url': 'http://patterns.dev.sabrehospitality.com/' },
-	        { name: 'Central Data Collection', 'url': 'http://cdc.esiteportal.com/admin/login.php' },
-	        { name: 'Catalyst Lab', 'url': 'http://patterns.dev.sabrehospitality.com/' },
-	        { name: 'Clone CMT', 'url': 'http://context.sabredemos.com/client/login.php' },
-	        { name: 'Cloudforge SVN', 'url': 'https://app.cloudforge.com/' },
-	        { name: 'DotP', 'url': 'http://skynet.esiteportal.com/dotp/index.php' },
-	        { name: 'InVision', 'url': 'https://projects.invisionapp.com' },
-	        { name: 'Knowledge Foundation Center', 'url': 'http://skynet.esiteportal.com/kfc-remote-login.php' },
-	        { name: 'Kronos', 'url': 'https://sabre.kronos.net/' },
-	        { name: 'MyCareer', 'url': 'http://mycareer.sabre.com' },
-	        { name: 'DMS Portal', 'url': 'http://dmsportal.sabrehospitality.com/' },
-	        { name: 'eSite Portal', 'url': 'http://www.esiteportal.com/index.php?SECTION=login' },
-	        { name: 'Profit Center', 'url': 'http://skynet.esiteportal.com/PPC/login.php' },
-	        { name: 'Sabre Benefits Portal', 'url': 'https://ess5.empyreanbenefitsolutions.com/sabre/security/login' },
-	        { name: 'Sabre Wiki', 'url': 'http://wiki.esitelabs.com:1081/index.php/Main_Page' },
-	        { name: 'SHS User Admin', 'url': 'https://shsuseradmin.sabrehospitality.com/' },
-	        { name: 'Shutterstock', 'url': 'http://www.shutterstock.com/' },
-	        { name: 'Swamp (MCC/CMT)', 'url': 'http://esiteinteractive.com/swamp/login.php' },
-	        { name: 'Teamphoria', 'url': 'https://shs.teamphoria.com/' },
-	    ]
-	}`;
-	
-	//convert object to json string
-	// const resourcesList = JSON.stringify(resourcesArray);
-	
-	// //convert string to Json Object
-	// // console.log(JSON.parse(resourcesList));
-	
-	// var resource = [];
-	// var obj = {
-	//     'name'	:	name,
-	//     'url'	:	url
-	// };
-	// resource.push(obj);
-	
-	// let employeeObject = new Resource('Browserstack', 'http://www.browserstack.com');
-	// JSON.stringify(employeeObject);
-	
-	// let template = document.createElement('ul');
-	// template.innerHTML = `
-	// 	<li>
-	// 		<a href="${resource.url}" target="_blank">${resource.name}</a>
-	// 	</li>
-	// `;
-	
-	// // create resource link function
-	// function Resource(name, url) {
-	//     this.name = name;
-	//     this.url  = url;
-	// };
+	let element = document.getElementById('branding');
+	if (typeof(element) !== 'undefined' && element !== null && document.body.id != 'login') {
+		
+		
+		// -- define resources list items
+		const resources = [
+			{
+				id: 00, 
+				name:	'Browserstack', 
+				// logo:	'https://media.glassdoor.com/sqll/894257/browserstack-squarelogo-1463751505724.png', 
+				url:	'http://www.browserstack.com', 
+				description: 'Live, web-based browser testing; instant access to all real mobile and desktop browsers. Say goodbye to your lab of devices and virtual machines.'
+			},
+			{
+				id: 01, 
+				name: 'Catalyst Lab', 
+				url: 'http://patterns.dev.sabrehospitality.com/',
+				description: 'Collection of home-brewed SHS web components.'
+			},
+			{ id: 02, name: 'Central Data Collection', url: 'http://cdc.esiteportal.com/admin/login.php' },
+			// { id: 03, name: 'Catalyst Lab', url: 'http://patterns.dev.sabrehospitality.com/' },
+			{ id: 04, name: 'Clone CMT', url: 'http://context.sabredemos.com/client/login.php' },
+			{
+				id: 05, 
+				name: 'Cloudforge SVN', 
+				url: 'https://app.cloudforge.com/',
+				description: 'Subversion (SVN) repository hosting.'
+			},
+			{ id: 06, name: 'DotP', url: 'http://skynet.esiteportal.com/dotp/index.php' },
+			{
+				id: 07, 
+				name: 'InVision', 
+				url: 'https://projects.invisionapp.com',
+				description: 'InVision allows you to quickly create interactive clickable prototypes and gather instant feedback from your users/stakeholders.'
+			},
+			{
+				id: 08, 
+				name: 'Knowledge Foundation Center', 
+				url: 'http://skynet.esiteportal.com/kfc-remote-login.php',
+				description: '\"Question and Answer\" site that is free to use. You may come here to ask a question, put a solution to a problem someone has, or just browse around for a topic that may interest you.'
+			},
+			{
+				id: 09, 
+				name: 'Kronos', 
+				url: 'https://sabre.kronos.net/',
+				description: 'Kronos\® simplifies the tedious tasks involved with monitoring employee time and attendance, labor tracking, and data collection.'
+			},
+			{
+				id: 10, 
+				name: 'MyCareer', 
+				url: 'http://mycareer.sabre.com',
+				description: 'The Sabre MyCareer tool is a portal for all your SHS-related needs.'
+			},
+			{
+				id: 11, 
+				name: 'DMS Portal', 
+				url: 'http://dmsportal.sabrehospitality.com/',
+				description: 'One-stop-shop for all DMS stuff.'
+			},
+			{ id: 12, name: 'eSite Portal', url: 'http://www.esiteportal.com/index.php?SECTION=login' },
+			{ id: 13, name: 'Profit Center', url: 'http://skynet.esiteportal.com/PPC/login.php' },
+			{ id: 14, name: 'Sabre Benefits Portal', url: 'https://ess5.empyreanbenefitsolutions.com/sabre/security/login' },
+			{
+				id: 15, 
+				name: 'SHS Wiki', 
+				url: 'http://wiki.esitelabs.com:1081/index.php/Main_Page',
+				description: 'Looking for something? You\'ll probably find information about it here.'
+			},
+			{ id: 16, name: 'SHS User Admin', url: 'https://shsuseradmin.sabrehospitality.com/' },
+			{
+				id: 17, 
+				name: 'Shutterstock', 
+				url: 'http://www.shutterstock.com/',
+				description: 'Search millions of royalty-free stock photos, illustrations, and vectors. Get inspired by ten thousand new, high-resolution images added daily.'
+			},
+			{ id: 18, name: 'Swamp (MCC/CMT)', url: 'http://esiteinteractive.com/swamp/login.php' },
+			{
+				id: 19, 
+				name: 'Teamphoria', 
+				url: 'https://shs.teamphoria.com/',
+				description: 'Teamphoria is the employee engagement software you need to amplify your team’s energy and increase company revenue.'
+			},
+		];
+		
+		
+		// -- hide old resources button
+		document.getElementById('branding').querySelector('li:nth-child(3)').style.display = 'none';
+		
+		
+		//-- create new resources sidebar button
+		let newButton = document.createElement('li');
+		newButton.innerHTML = `
+			<a id="resources" href="#modal-resources" class="skynet-offcanvas-link" uk-toggle>
+	    		Resources
+	    		<i class="material-icons">info</i>
+	    	</a>
+		`;
+		document.getElementById('primary').appendChild(newButton);
+		
+		
+		// -- create new modal for resource list
+		let modal = document.createElement('article');
+		modal.setAttribute('uk-modal', '');
+		modal.id = 'modal-resources';
+		modal.innerHTML = `
+			<div class="uk-modal-dialog">
+				<button class="uk-modal-close-default" type="button" uk-close></button>
+				<header class="uk-modal-header">
+					<h2 class="uk-modal-title">Resources</h2>
+				</header>
+				<div id="resourcesList" class="uk-modal-body uk-overflow-auto" uk-overflow-auto>
+				</div>
+				<footer class="uk-modal-footer uk-text-right">
+					<button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
+				</footer>
+			</div>
+			<script id="resourcesTemplate" type="x-template">
+				<a class="resource-link" target="_blank">
+					<div class="resource-info-wrapper">
+						<p class="resource-name uk-margin-remove"></p>
+						<h6 class="resource-description uk-text-meta uk-margin-remove no-content" />
+					</div>
+					<div class="resource-logo-wrapper no-content">
+						<img class="resource-logo no-content" />
+					</div>
+				</a>
+			</script>
+		`;
+		document.body.append(modal);
+		
+		
+		// -- print every resource in resources to a list inside #modal-resources
+		// -- forked https://codepen.io/eddyerburgh/pen/ONEQGr
+		let template = document.getElementById('resourcesTemplate').innerHTML;
+		
+		let anchor = document.createElement('ul');
+		anchor.classList.add('uk-list', 'uk-list-striped', 'uk-list-large');
+		
+		resources.forEach(function(resource) {
+			let el = document.createElement('li');
+			el.classList.add('resource-item');
+			el.innerHTML = template;
+			
+			let empty = 'no-content';
+				
+				// -- resource.logo
+				if (resource.logo) {
+					el.getElementsByClassName('resource-logo')[0].setAttribute('src', resource.logo);
+					el.getElementsByClassName('resource-logo')[0].classList.remove(empty);
+					el.getElementsByClassName('resource-logo-wrapper')[0].classList.remove(empty);
+				}
+				
+				// -- resource.name
+				if (resource.name)
+					el.getElementsByClassName('resource-name')[0].appendChild(document.createTextNode(resource.name));
+				
+				// -- resource.description
+				if (resource.description) {
+					el.getElementsByClassName('resource-description')[0].appendChild(document.createTextNode(resource.description));
+					el.getElementsByClassName('resource-description')[0].classList.remove(empty);
+				}
+				
+				// -- resource.url
+				if (resource.url)
+					el.getElementsByClassName('resource-link')[0].setAttribute('href', resource.url);
+				else
+					el.classList.add(empty);
+				
+			anchor.appendChild(el)
+		});
+		
+		document.getElementById('resourcesList').appendChild(anchor);
+	}
 })();
 
 
@@ -1611,12 +1703,34 @@ setTimeout(()=> {
 		// swap
 		let swapper = document.querySelector('.user-tabs');
 		swapper.classList.add('uk-subnav', 'uk-subnav-pill');
-		// swapper.setAttribute('uk-switcher', 'connect: .switcher-container;');
 		
-		// let myclients = document.getElementById('myclients');
-		// myclients.classList.add('uk-switcher', 'switcher-container', 'uk-active');
+		let myclients = document.getElementById('myclients');
+		let clientsList = myclients.querySelector('ul');
+		clientsList.classList.add('uk-list', 'uk-list-divider');
 		
 		// let myinterface = document.getElementById('myinterface');
 		// myinterface.classList.add('uk-switcher', 'switcher-container');
+	}
+})();
+
+
+
+/**
+ * Attach a link to the Github issue tracker to the branding header.
+ * 
+ * @name issuesLink
+ * @group globalElements
+ */
+(()=> {
+	let element = document.getElementById('primary');
+	if (typeof(element) !== 'undefined' && element !== null) {
+		let issues = document.createElement('li');
+		issues.innerHTML = `
+			<a class="skynet-offcanvas-link" id="issues" href="https://github.com/williampansky/skynet.override/issues" target="_blank">
+				Issue Tracker *
+				<span uk-icon="icon: github"></span>
+			</a>
+		`;
+		element.appendChild(issues);
 	}
 })();
