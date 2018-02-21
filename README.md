@@ -1,4 +1,4 @@
-# Skynet.Override v0.1.2
+# Skynet.Override v0.1.3
 > _"Assuming direct control."_
 
 Styles and scripts powered by the [User JavaScript & CSS](https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld) Chrome extension to reconfigure the front-end of Skynet.
