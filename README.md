@@ -37,6 +37,8 @@ If you want to help out, feel free to edit the codebase (either via the `/src` d
 
 ## Versioning
 
+* v0.1.3 — February 21, 2018
+    * `ENHANCEMENT` Added back labels to `.live-results`.
 * v0.1.2 — February 2, 2018
     * `FEATURE` Finished new resource modal implementation. New resources can now be added to the JSON array defined inside of @name resourcesList.
     * `BUG FIX` General fixes.

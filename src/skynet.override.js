@@ -385,6 +385,53 @@ function addCSS(string) {
 		if (typeof(prog00) !== 'undefined' && prog00 !== null) {
 			for (let i = 0; i < prog00.length; i++) { prog00[i].setAttribute('title', '0% Complete'); }
 		}
+				
+		
+		/**
+		 * Create uk-label elem if td.view has a .label child.
+		 * @function createTaskLabel
+		 */
+		 //function createTaskLabel(labelText, labelType) {
+		 //	let element = document.createElement('span');
+		 //	element.classList.add('uk-label');
+		 	
+		 //	if (labelType != null)
+		 //		element.classList.add(labelType);
+		 	
+		 //	element.innerHTML = labelText;
+		 //	// this.appendChild(element);
+		 //}
+		 
+		 let hasLabel = document.querySelectorAll('.view > .label');
+		 for (let i=0; i < hasLabel.length; i++) {
+			hasLabel[i].parentNode.parentNode.classList.add('has-label');
+			if (hasLabel[i].classList.contains('updated')) {
+				hasLabel[i].parentNode.parentNode.classList.add('label-updated');
+			}
+			if (hasLabel[i].classList.contains('new-reply')) {
+				hasLabel[i].parentNode.parentNode.classList.add('label-reply');
+			}
+		}
+		 
+		 setTimeout(()=> {
+			let taskUpdated = document.querySelectorAll('.label-updated');
+			for (let i=0; i < taskUpdated.length; i++) {
+				let element = document.createElement('div');
+				element.innerHTML = `
+					<span class="uk-label skynet-label">Updated</span>
+				`;
+				taskUpdated[i].appendChild(element);
+			}
+			
+			let taskReplied = document.querySelectorAll('.label-reply');
+			for (let i=0; i < taskReplied.length; i++) {
+				let element = document.createElement('div');
+				element.innerHTML = `
+					<span class="uk-label uk-label-success skynet-label">New Reply</span>
+				`;
+				taskReplied[i].appendChild(element);
+			}
+		}, 400);
 	}
 })();
 
@@ -485,6 +532,23 @@ function addCSS(string) {
 		let details = document.getElementById('details');
 		details.classList.add('uk-grid', 'uk-grid-collapse', 'uk-width-1-1', 'uk-child-width-1-4@m');
 		details.querySelector('.info-list.no-border > li:nth-child(5)').classList.add('uk-width-1-1@m');
+		
+		
+		/**
+		 * avatar testing
+		 */
+		let taskedToLink = details.querySelector('.info-list li a');
+		let taskedTo = taskedToLink.parentNode.id = 'taskedTo';
+		
+		if (taskedToLink.innerHTML == 'William Pansky') {
+			let avatar = document.createElement('div');
+			avatar.id = 'avatar_williampansky'
+			avatar.classList.add('user-avatar-wrapper');
+			avatar.innerHTML = `
+				<img class="user-avatar" src="https://williampansky.com/favicon-32x32.png" />
+			`;
+			taskedToLink.prepend(avatar);
+		}
 		
 		
 		/**
@@ -633,7 +697,7 @@ function addCSS(string) {
 		setTimeout(()=> {
 			let radialValue = radialProg;
 			radialObj.animate(radialValue);
-		}, 4500);
+		}, 2500);
 	}
 })();
 
@@ -882,15 +946,15 @@ function addCSS(string) {
 		searchForm.classList.add(
 			'uk-card', 
 			'uk-card-default', 
-			'uk-card-small', 
+			// 'uk-card-small', 
 			'uk-card-body'
 		);
 		
-		let console = document.querySelector('.search-console');
-		console.classList.add('uk-section-small');
+		// let console = document.querySelector('.search-console');
+		// console.classList.add('uk-section-small');
 		
 		let search = document.querySelector('.basic-search');
-		search.classList.add('uk-container');
+		// search.classList.add('uk-container');
 		
 		
 		/**

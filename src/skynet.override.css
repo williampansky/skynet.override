@@ -14,8 +14,9 @@ em { color: initial !important; }
  * @group	display.none
  */
 .view, 
-.icons, 
-.live-results th:nth-child(1) {
+.live-results th:nth-child(1),
+.view .label,
+.icons {
 	display: none;
 }
 
@@ -1263,3 +1264,36 @@ form[name="search-form"].uk-card {
 #navigation #issues:hover .uk-icon, #navigation #issues:hover .uk-icon {
 	color: rgba(255, 255, 255, 0.875);
 }
+
+.rewrittenLink {
+	word-wrap: break-word;
+}
+
+.user-avatar-wrapper {
+	display: inline-block;
+}
+
+.user-avatar {
+	width: ;
+}
+
+.uk-card-default {
+	box-shadow: 0 -1px 0 #e0e0e0, 
+				0 0 2px rgba(0, 0, 0, 0.12), 
+				0 2px 4px rgba(0, 0, 0, 0.24) !important;
+}
+
+.skynet-label {
+	position: absolute;
+	left: 0;
+	transform: translate3d(-12px, -10px, 0);
+	font-size: .675rem !important;
+	padding-top: 2px !important;
+	letter-spacing: 0.0675em !important;
+	/*pointer-events: none;*/
+	cursor: default;
+}
+
+/*.label-updated {*/
+/*	background-color: var(--color-primary);*/
+/*}*/
