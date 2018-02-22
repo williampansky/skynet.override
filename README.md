@@ -1,4 +1,4 @@
-# Skynet.Override v0.1.2
+# Skynet.Override v0.1.4
 > _"Assuming direct control."_
 
 Styles and scripts powered by the [User JavaScript & CSS](https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld) Chrome extension to reconfigure the front-end of Skynet.
@@ -37,6 +37,8 @@ If you want to help out, feel free to edit the codebase (either via the `/src` d
 
 ## Versioning
 
+* v0.1.4 — February 22, 2018
+    * `ENHANCEMENT` Added pulse animation to "updated" label types.
 * v0.1.3 — February 21, 2018
     * `ENHANCEMENT` Added back labels to `.live-results`.
 * v0.1.2 — February 2, 2018

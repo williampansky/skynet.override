@@ -125,10 +125,12 @@ em { color: initial !important; }
 	/*	min-width: 150px;*/
 	/*}*/
 	
-	/*.live-results .allotted,*/
-	/*.live-results .logged {*/
-	/*	min-width: 75px;*/
-	/*}*/
+	.live-results .allotted .label {
+		background: none !important;
+		color: inherit !important;
+		font-size: 100% !important;
+		font-weight: normal !important;
+	}
 	
 	/*.live-results tbody > tr > td:nth-child(8),*/
 	/*.live-results tbody > tr > td:nth-child(8) {*/
@@ -1297,3 +1299,19 @@ form[name="search-form"].uk-card {
 /*.label-updated {*/
 /*	background-color: var(--color-primary);*/
 /*}*/
+
+.pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse {
+    0% {
+    	color: rgba(255, 255, 255, 0.5);
+    	box-shadow: 0 0 0 rgba(38, 44, 60, 0.5);
+    }
+    70% {
+    	color: rgba(255, 255, 255, 1);
+    	box-shadow: 0 0 0 .75rem rgba(38, 44, 60, 0);
+    }
+    100% {
+    	color: rgba(255, 255, 255, 0.35);
+    	box-shadow: 0 0 0 rgba(38, 44, 60, 0);
+    }
+}

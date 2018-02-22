@@ -418,7 +418,7 @@ function addCSS(string) {
 			for (let i=0; i < taskUpdated.length; i++) {
 				let element = document.createElement('div');
 				element.innerHTML = `
-					<span class="uk-label skynet-label">Updated</span>
+					<span class="uk-label skynet-label pulse">Updated</span>
 				`;
 				taskUpdated[i].appendChild(element);
 			}
