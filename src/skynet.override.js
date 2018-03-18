@@ -190,14 +190,14 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc thead => Progress
+		 * thead => Progress
 		 */
 		let progress = head.querySelector('th:nth-child(8)');
 		progress.classList.add('uk-width-auto', 'task-progress');
 		
 		
 		/**
-		 * @desc tbody => Remove day if there's no tasks.
+		 * tbody => Remove day if there's no tasks.
 		 */
 		let days = table.getElementsByTagName('td');
 		for (let i = 0; i < days.length; i++) {
@@ -212,7 +212,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Project link class.
+		 * tbody => Project link class.
 		 */
 		let taskLink = table.querySelectorAll('.task-link');
 		for (let i = 0; i < taskLink.length; i++)
@@ -224,7 +224,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Project owner <td> class.
+		 * tbody => Project owner <td> class.
 		 */
 		let taskOwner = document.querySelectorAll('.bs-component tr td:nth-child(3)');
 		for (let i = 0; i < taskOwner.length; i++)
@@ -232,7 +232,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Due date <td> class.
+		 * tbody => Due date <td> class.
 		 */
 		let dueDate = document.querySelectorAll('.bs-component tr td:nth-child(4)');
 		for (let i = 0; i < dueDate.length; i++)
@@ -240,7 +240,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Hours allotted <td> class.
+		 * tbody => Hours allotted <td> class.
 		 */
 		let hrsAllotted = document.querySelectorAll('.bs-component tr td:nth-child(5)');
 		for (let i = 0; i < hrsAllotted.length; i++)
@@ -248,7 +248,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Hours logged <td> class.
+		 * tbody => Hours logged <td> class.
 		 */
 		let hrsLogged = document.querySelectorAll('.bs-component tr td:nth-child(6)');
 		for (let i = 0; i < hrsLogged.length; i++)
@@ -256,7 +256,9 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc tbody => Add "% complete" uk-tooltip to progress <td> class elements. Takes the value of progress[value="##"] and applies that to a new title attribute.
+		 * tbody => Add "% complete" uk-tooltip to progress <td> class elements.
+		 * Takes the value of progress[value="##"] and applies that to a new title attribute.
+		 * 
 		 * @name progressTooltips
 		 */
 		let taskProgress = document.querySelectorAll('.bs-component tr td:nth-child(8)');
@@ -268,64 +270,65 @@ function addCSS(string) {
 			task_progress[i].setAttribute('uk-tooltip', 'duration: 20; delay: 0;');
 		
 		// -- 90% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog90 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="90"]');
 		if (typeof(prog90) !== 'undefined' && prog90 !== null)
 			for (let i = 0; i < prog90.length; i++) { prog90[i].setAttribute('title', '90% Complete'); }
 		
 		// -- 80% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog80 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="80"]');
 		if (typeof(prog80) !== 'undefined' && prog80 !== null)
 			for (let i = 0; i < prog80.length; i++) { prog80[i].setAttribute('title', '80% Complete'); }
 		
 		// -- 70% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog70 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="70"]');
 		if (typeof(prog70) !== 'undefined' && prog70 !== null)
 			for (let i = 0; i < prog70.length; i++) { prog70[i].setAttribute('title', '70% Complete'); }
 		
 		// -- 60% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog60 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="60"]');
 		if (typeof(prog60) !== 'undefined' && prog60 !== null)
 			for (let i = 0; i < prog60.length; i++) { prog60[i].setAttribute('title', '60% Complete'); }
 		
 		// -- 50% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog50 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="50"]');
 		if (typeof(prog50) !== 'undefined' && prog50 !== null)
 			for (let i = 0; i < prog50.length; i++) { prog50[i].setAttribute('title', '50% Complete'); }
 		
 		// -- 40% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog40 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="40"]');
 		if (typeof(prog40) !== 'undefined' && prog40 !== null)
 			for (let i = 0; i < prog40.length; i++) { prog40[i].setAttribute('title', '40% Complete'); }
 		
 		// -- 30% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog30 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="30"]');
 		if (typeof(prog30) !== 'undefined' && prog30 !== null)
 			for (let i = 0; i < prog30.length; i++) { prog30[i].setAttribute('title', '30% Complete'); }
 		
 		// -- 20% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog20 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="20"]');
 		if (typeof(prog20) !== 'undefined' && prog20 !== null)
 			for (let i = 0; i < prog20.length; i++) { prog20[i].setAttribute('title', '20% Complete'); }
 		
 		// -- 10% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog10 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="10"]');
 		if (typeof(prog10) !== 'undefined' && prog10 !== null)
 			for (let i = 0; i < prog10.length; i++) { prog10[i].setAttribute('title', '10% Complete'); }
 		
 		// -- 0% Complete
-		/** @memberof progressTooltips */
+		// @memberof progressTooltips
 		let prog00 = document.querySelectorAll('.bs-component tr td:nth-child(8) > progress[value="0"]');
 		if (typeof(prog00) !== 'undefined' && prog00 !== null)
 			for (let i = 0; i < prog00.length; i++) { prog00[i].setAttribute('title', '0% Complete'); }
+		
 		
 		
 		/**
@@ -343,8 +346,9 @@ function addCSS(string) {
 				hasLabel[i].parentNode.parentNode.classList.add('label-reply');
 		}
 		
+		
 		/**
-		 * @desc Adjust created labels with text and style.
+		 * Adjust created labels with text and style.
 		 */
 		setTimeout(()=> {
 			// -- updated
@@ -377,21 +381,22 @@ function addCSS(string) {
 	let element = document.getElementById('tasklogs-table');
 	if (typeof(element) !== 'undefined' && element !== null) {
 		
+		
 		/**
-		 * @desc Remove 'Back to Project' button;
+		 * Remove 'Back to Project' button;
 		 */
 		let back = document.querySelectorAll('.option-button')[0];
 		back.id = 'backToProject';
 		back.style.display = 'none';
 		
 		/**
-		 * @desc Add container to info wrapper elem.
+		 * Add container to info wrapper elem.
 		 */
 		let info = document.querySelector('.info-wrapper');
 		info.classList.add('uk-margin-medium-bottom');
 		
 		/**
-		 * @desc Add style and positioning to new log button.
+		 * Add style and positioning to new log button.
 		 */
 		document.querySelectorAll('.option-button')[1].id = 'logButton';
 		let newLogWrap	= document.getElementById('logButton');
@@ -402,7 +407,7 @@ function addCSS(string) {
 		logButton.classList.remove('btn');
 		
 		/**
-		 * @desc Task logs (comments) conversions; turn log comments into individual cards.
+		 * Task logs (comments) conversions; turn log comments into individual cards.
 		 */
 		(()=> {
 			let taskLogs = document.getElementById('tasklogs-table');
@@ -428,7 +433,7 @@ function addCSS(string) {
 			
 			
 			/**
-			 * @desc Remove empty paragraph tags from .comment elems.
+			 * Remove empty paragraph tags from .comment elems.
 			 */
 			let emptyParagraphs = document.querySelectorAll('comment p');
 			for (let i = 0; i < emptyParagraphs.length; i++) {
@@ -439,7 +444,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc Remove and convert last tr.total-hours;
+		 * Remove and convert last tr.total-hours;
 		 */
 		let last = document.querySelector('.total-hours');
 		if (typeof(last) !== 'undefined' && last !== null) {
@@ -452,7 +457,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc #details informational items
+		 * #details informational items
 		 */
 		let details = document.getElementById('details');
 		details.querySelector('.info-list.no-border > li:nth-child(5)').classList.add('uk-width-1-1@m');
@@ -465,21 +470,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc avatar testing
-		 */
-		let taskedToLink = details.querySelector('.info-list li a');
-		let taskedTo = taskedToLink.parentNode.id = 'taskedTo';
-		if (taskedToLink.innerHTML == 'William Pansky') {
-			let avatar = document.createElement('div');
-			avatar.id = 'avatar_williampansky'
-			avatar.classList.add('user-avatar-wrapper');
-			avatar.innerHTML = `<img class="user-avatar" src="https://williampansky.com/favicon-32x32.png" />`;
-			taskedToLink.prepend(avatar);
-		}
-		
-		
-		/**
-		 * @desc modify property boxes
+		 * modify property boxes
 		 */
 		let property = details.getElementsByClassName('property-box');
 		let propTitle = details.getElementsByClassName('pb-title');
@@ -499,7 +490,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc modify log description items
+		 * modify log description items
 		 */
 		let info1 = details.querySelectorAll('.info-list')[0];
 		info1.classList.add(
@@ -548,7 +539,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc description tabs
+		 * description tabs
 		 */
 		let switcher = document.getElementById('descr-tab');
 		switcher.classList.add('uk-subnav', 'uk-subnav-pill');
@@ -571,7 +562,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc spread tasks
+		 * spread tasks
 		 */
 		let spreadWrapper = document.querySelector('form.standard');
 		if (typeof(spreadWrapper) !== 'undefined' && spreadWrapper !== null) {
@@ -601,7 +592,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc radialIndicator.js
+		 * radialIndicator.js
 		 */
 		setTimeout(()=> {
 			let radialWrapper = document.getElementById('prog-bar');
@@ -669,7 +660,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc uncheck notify by default (used to be checked by default)
+		 * uncheck notify by default (used to be checked by default)
 		 */
 		setTimeout(()=> {
 			document.getElementById('toggle-all').click();
@@ -677,7 +668,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc control functionality of the new log button
+		 * control functionality of the new log button
 		 */
 		let newLogBtn = document.getElementById('new-log-link');
 		newLogBtn.classList.add('uk-button', 'uk-button-default');
@@ -699,7 +690,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc transform #logform into full-screen modal
+		 * transform #logform into full-screen modal
 		 */
 		let form = document.getElementById('logform');
 		let radio = form.getElementsByTagName('input[type="radio"]');
@@ -760,7 +751,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc New log progress control
+		 * New log progress control
 		 */
 		let progressList = progress.querySelector('ul');
 		progressList.classList.add('uk-iconnav', 'uk-child-width-expand');
@@ -772,7 +763,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc add modal close btn
+		 * add modal close btn
 		 */
 		let logClose = document.createElement('button');
 		logClose.classList.add('uk-modal-close-full', 'uk-close-large', 'uk-close', 'uk-icon', 'uk-padding-small', 'uk-animation-fade');
@@ -790,7 +781,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc turn contacts into uk-accordion
+		 * turn contacts into uk-accordion
 		 */
 		let contacts = log_contacts.querySelector('.contact-list');
 		contacts.classList.add('uk-accordion');
@@ -815,22 +806,51 @@ function addCSS(string) {
 		// 	}
 		// }, 800);
 		/**
-		 * @desc hide empty contact groups
+		 * -- hide empty contact groups
 		 * @todo convert to vanilla javascript 
-		 * {@link https://stackoverflow.com/a/22782542/8296677}
+		 * @link https://stackoverflow.com/a/22782542/8296677
 		 */
-		$('#log-contacts').find('ul').each(function(){
+		$('#log-contacts').find('ul').each(function() {
 		   var txt = $("li", this).text();
-		   if(txt.length <= 0){
+		   if(txt.length <= 0) {
 		      $(this).hide();
 			  $(this).parent().addClass('empty');
 		   }
 		});
+						
+		
+		/**
+		 * New log progress control
+		 */
+		let logRequest = log_info.querySelectorAll('.checkboxgroup');
+		for (let i=0; i < logRequest.length; i++) {
+			logRequest[i].addEventListener('click', ()=> {
+				if (logRequest[i].classList.contains('checked'))
+					logRequest[i].classList.remove('checked');
+				else
+					logRequest[i].classList.add('checked');
+			});
+		}
+		
+		let returnQA = log_info.querySelector('#data_problem_returned').parentNode;
+		let returnQA_Icon = document.createElement('span');
+		returnQA_Icon.setAttribute('uk-icon', 'icon:file-edit; ratio:1.5;');
+		returnQA.appendChild(returnQA_Icon);
+		
+		let needInfo = log_info.querySelector('#data_problem_needinfo').parentNode;
+		let needInfo_Icon = document.createElement('span');
+		needInfo_Icon.setAttribute('uk-icon', 'icon:question; ratio:1.5;');
+		needInfo.appendChild(needInfo_Icon);
+		
+		let needAssets = log_info.querySelector('#data_problem_needassets').parentNode;
+		let needAssets_Icon = document.createElement('span');
+		needAssets_Icon.setAttribute('uk-icon', 'icon:lifesaver; ratio:1.5;');
+		needAssets.appendChild(needAssets_Icon);
 		
 		
 		/**
-		 * @desc clear all inline styles
-		 * {@link https://stackoverflow.com/a/25904055/8296677}
+		 * clear all inline styles
+		 * @link https://stackoverflow.com/a/25904055/8296677
 		 */
 		let divs = form.querySelectorAll('*');
 		Array.prototype.forEach.call(divs, (element)=> {
@@ -839,7 +859,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc remove all instances of .field;
+		 * remove all instances of .field;
 		 */
 		let field = form.getElementsByClassName('field');
 		for (let elem = 0; elem < field.length; elem++) {
@@ -891,8 +911,9 @@ function addCSS(string) {
 	let element = document.querySelector('.search-form');
 	if (typeof(element) !== 'undefined' && element !== null) {
 		
+		
 		/**
-		 * @desc Add .uk-* classes to search wrappers.
+		 * Add .uk-* classes to search wrappers.
 		 */
 		let searchForm = document.querySelector('.search-form');
 		searchForm.classList.add(
@@ -910,7 +931,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc Add uk-* form classes to search elems
+		 * Add uk-* form classes to search elems
 		 */
 		let client_name = search.querySelector('#client_name');
 		if (typeof(client_name) !== 'undefined' && client_name !== null)
@@ -930,7 +951,7 @@ function addCSS(string) {
 		
 		
 		/**
-		 * @desc Add and remove classes from search form buttons
+		 * Add and remove classes from search form buttons
 		 */
 		let submit = search.querySelector('input[type="submit"]');
 		if (typeof(submit) !== 'undefined' && submit !== null) {
@@ -993,6 +1014,7 @@ function addCSS(string) {
 
 /**
  * @todo Figure out where this ID is, lol ...
+ * 
  * @name openTicket
  * @memberof pageSpecifics
  * @memberof ??
@@ -2249,3 +2271,41 @@ function convert(selector, removeClasses, addClasses) {
 			break;
 	}
 }
+
+
+
+/**
+ * @function addAvatar
+ * @description Using switch to apply avatars.
+ * @memberof functions
+ * @param {String} Selector The DOM element to apply the conversion.
+*/
+// function addAvatar(selector, removeClasses) {
+// 	switch (type) {
+// 		case 'William Pansky':
+// 			if (typeof(selector) !== 'undefined' && selector !== null) {
+// 				selector.classList.add(
+// 					'uk-card', 
+// 					'uk-card-default', 
+// 					'uk-card-small', 
+// 					'uk-card-body'
+// 				);
+// 			}
+// 			break;
+			
+// 		default: null
+// 			break;
+// 	}
+// }
+
+// let taskedToLink = details.querySelector('.info-list li a');
+// let taskedTo = taskedToLink.parentNode.id = 'taskedTo';
+// if (taskedToLink.innerHTML == 'William Pansky') {
+// 	let avatar = document.createElement('div');
+// 	avatar.id = 'avatar_williampansky'
+// 	avatar.classList.add('user-avatar-wrapper');
+// 	avatar.innerHTML = `<img class="user-avatar" src="https://williampansky.com/favicon-32x32.png" />`;
+// 	taskedToLink.prepend(avatar);
+// }
+
+// http://i2.wp.com/blog.weigy.com/wp-content/themes/weigy.0.4/weigy/i/comment-default.gif

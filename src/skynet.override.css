@@ -19,7 +19,8 @@ em { color: initial !important; }
 .icons,
 .quick-view,
 #content > h1,
-#section-tabs {
+#section-tabs,
+#log-info .checkboxgroup img {
 	display: none;
 }
 
@@ -1164,7 +1165,13 @@ form[name="search-form"].uk-card {
 }
 
 .user-avatar-wrapper {
+	border-radius: 50%;
 	display: inline-block;
+	width: 32px;
+	height: 32px;
+	margin: 0 0.4rem 0 0.25rem;
+	position: relative;
+	top: -2px;
 }
 
 .uk-card-default {
@@ -1200,4 +1207,59 @@ form[name="search-form"].uk-card {
     	color: rgba(255, 255, 255, 0.35);
     	box-shadow: 0 0 0 rgba(38, 44, 60, 0);
     }
+}
+
+#log-info .checkboxgroup {
+	list-style-type: none;
+	line-height: 2;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+#log-info .checkboxgroup input[type="checkbox"] {
+	border: 0;
+	background: transparent;
+	background-color: transparent;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	/*visibility: hidden;*/
+	position: absolute;
+	top: 0; right: 0; bottom: 0; left: 0;
+	-webkit-appearance: none;
+			appearance: none;
+}
+
+#log-info .checkboxgroup .uk-icon {
+	pointer-events: none;
+}
+
+#log-info .checkboxgroup .uk-form-label {
+	color: #999;
+	font-family: Verdana, sans-serif;
+	font-size: 0.75rem;
+	line-height: 2;
+	letter-spacing: 0.003em;
+	margin: 0;
+}
+
+#log-info .checkboxgroup,
+#log-info .checkboxgroup .uk-form-label {
+	opacity: 0.525;
+	transition: 400ms ease-in-out;
+}
+
+#log-info .checkboxgroup:hover,
+#log-info .checkboxgroup:focus {
+	opacity: 1;
+}
+
+#log-info .checkboxgroup.checked,
+#log-info .checkboxgroup.checked .uk-form-label {
+	color: var(--color-primary);
+	opacity: 1;
 }
