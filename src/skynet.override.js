@@ -18,13 +18,13 @@ addCSS('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i|Rob
  * @function document.ready
  */
 document.addEventListener("DOMContentLoaded", ()=> {
-	// -- remove loader after 1.5s
+	// -- remove loader after 1.75s
 	setTimeout(()=> {
 		let loader = document.querySelector('.loader');
 		loader.classList.add('is-finished');
 		document.body.classList.remove('no-scroll');
 		setTimeout(()=> { loader.remove(); }, 200);
-	}, 2500);
+	}, 1750);
 });
 
 
@@ -42,12 +42,12 @@ function loader() {
 	document.body.classList.add('no-scroll');
 	
 	// -- remove loading graphic after 1s 
-	setTimeout(()=> {
+	// setTimeout(()=> {
 		document.body.classList.add(
 			'loading-finished', 
 			'uk-offcanvas-content'
 		);
-	}, 1000);
+	// }, 1000);
 }
 
 
@@ -347,25 +347,92 @@ function addCSS(string) {
 		}
 		
 		
+		
+		/**
+		 * Create uk-label elem if td.icons has a .should-be-a-label child.
+		 * @function createTaskLabel
+		 */
+		 let hasIcons = document.querySelectorAll('.icons > .should-be-a-label');
+		 for (let i=0; i < hasIcons.length; i++) {
+			hasIcons[i].parentNode.parentNode.parentNode.classList.add('has-label');
+			
+			if (hasIcons[i].classList.contains('problem'))
+				hasIcons[i].parentNode.parentNode.parentNode.classList.add('label-problem');
+			
+			if (hasIcons[i].classList.contains('hi-priority'))
+				hasIcons[i].parentNode.parentNode.parentNode.classList.add('label-highprio');
+		}
+		
+		
+		
 		/**
 		 * Adjust created labels with text and style.
 		 */
 		setTimeout(()=> {
-			// -- updated
-			let taskUpdated = document.querySelectorAll('.label-updated');
-			for (let i=0; i < taskUpdated.length; i++) {
+			// skynet-labels (wrapper)
+			let hasLabels = document.querySelectorAll('.has-label');
+			for (let i=0; i < hasLabels.length; i++) {
 				let element = document.createElement('div');
-				element.innerHTML = `<span class="uk-label skynet-label pulse">Updated</span>`;
-				taskUpdated[i].appendChild(element);
+				element.classList.add('skynet-labels');
+				hasLabels[i].appendChild(element);
 			}
 			
-			// -- replies
-			let taskReplied = document.querySelectorAll('.label-reply');
-			for (let i=0; i < taskReplied.length; i++) {
-				let element = document.createElement('div');
-				element.innerHTML = `<span class="uk-label uk-label-success skynet-label">New Reply</span>`;
-				taskReplied[i].appendChild(element);
-			}
+			setTimeout(()=> {
+				let labels = document.querySelectorAll('.skynet-labels');
+				for (let i=0; i < labels.length; i++) {
+					
+					// -- updated
+					if (labels[i].parentNode.classList.contains('label-updated')) {
+						let element = document.createElement('span');
+						element.classList.add('uk-label', 'skynet-label', 'pulse', 'skynet-label-updated');
+						element.innerHTML = `Updated`;
+						labels[i].appendChild(element);
+					}
+					
+					// -- high priority
+					if (labels[i].parentNode.classList.contains('label-highprio')) {
+						let element = document.createElement('span');
+						element.classList.add('uk-label', 'uk-label-warning', 'skynet-label', 'skynet-label-highprio');
+						element.innerHTML = `!`;
+						labels[i].appendChild(element);
+					}
+					
+					// -- replies
+					if (labels[i].parentNode.classList.contains('label-reply')) {
+						let element = document.createElement('span');
+						element.classList.add('uk-label', 'uk-label-success', 'skynet-label', 'skynet-label-newreply');
+						element.innerHTML = `New Reply`;
+						labels[i].appendChild(element);
+					}
+					
+					// -- need more info
+					if (labels[i].parentNode.classList.contains('label-problem')) {
+						let element = document.createElement('span');
+						element.classList.add('uk-label', 'uk-label-danger', 'skynet-label', 'skynet-label-needinfo');
+						element.innerHTML = `Need Info`;
+						labels[i].appendChild(element);
+					}
+				}
+			}, 400);
+		}, 400);
+		
+		
+		/**
+		 * Move "hide 90% tasks" from original position to navbar
+		 */
+		setTimeout(()=> {
+			let newParent = document.querySelector('.uk-navbar-left');
+			// let oldParent = document.querySelector('#content > .option-button');
+			// while (oldParent.childNodes.length > 0) {
+			//     // newParent.appendChild(oldParent.childNodes[0]);
+			//     oldParent.childNodes[0].remove();
+			// }
+			
+			// setTimeout(()=> {
+				let element = document.createElement('li');
+				element.innerHTML = `<a href="?" id="hideshow90" data-alt="Show 90% Tasks" class="btn"><span>Hide 90% Tasks</span></a>`;
+				newParent.appendChild(element);
+			// }, 400);
 		}, 400);
 	}
 })();
@@ -380,14 +447,45 @@ function addCSS(string) {
 (()=> {
 	let element = document.getElementById('tasklogs-table');
 	if (typeof(element) !== 'undefined' && element !== null) {
-		
-		
 		/**
-		 * Remove 'Back to Project' button;
+		 * Adjust task option buttons
 		 */
 		let back = document.querySelectorAll('.option-button')[0];
 		back.id = 'backToProject';
-		back.style.display = 'none';
+		back.setAttribute('uk-grid', '');
+		back.classList.add('uk-grid-small');
+		let btns = document.querySelectorAll('.option-button .btn');
+		for (let i=0; i < btns.length; i++)
+			btns[i].classList.add('uk-button');
+		
+		
+		// -- move task edit btn row to nav right
+		setTimeout(()=> {
+			// let newParent = document.querySelector('#branding');
+			// let oldParent = document.querySelector('#backToProject');
+			// while (oldParent.childNodes.length > 0) {
+			//     newParent.appendChild(oldParent.childNodes[0]);
+			// }
+			
+			setTimeout(()=> {
+				let new_html = document.createElement('ul');
+				new_html.id = 'optionsNew';
+				new_html.classList.add(
+					'uk-navbar-right', 
+					'uk-navbar-nav', 
+					'uk-list', 
+					'uk-margin-remove'
+				);
+				document.getElementById('branding').appendChild(new_html)
+				
+				setTimeout(()=> {
+					let org_html = document.getElementById('backToProject').innerHTML;
+					let new_html = org_html;
+					document.getElementById('optionsNew').innerHTML = new_html;
+				}, 400);
+			}, 400);
+		}, 400);
+		
 		
 		/**
 		 * Add container to info wrapper elem.
@@ -459,50 +557,74 @@ function addCSS(string) {
 		/**
 		 * #details informational items
 		 */
+		let Info = document.querySelector('#content .info');
+		if (typeof(Info) !== 'undefined' && Info !== null) {
+			Info.classList.add(
+				'uk-grid', 
+				'uk-grid-collapse', 
+				'uk-width-1-1', 
+				// 'uk-child-width-1-2@m'
+			);
+		}
+		
+		
+		/**
+		 * #details informational items
+		 */
 		let details = document.getElementById('details');
-		details.querySelector('.info-list.no-border > li:nth-child(5)').classList.add('uk-width-1-1@m');
-		details.classList.add(
-			'uk-grid', 
-			'uk-grid-collapse', 
-			'uk-width-1-1', 
-			'uk-child-width-1-4@m'
-		);
+		if (typeof(details) !== 'undefined' && details !== null) {
+			details.classList.add(
+				'uk-grid', 
+				'uk-grid-collapse', 
+				'uk-width-1-1', 
+				'uk-child-width-1-5@m',
+				'uk-card', 
+				'uk-card-default', 
+				'uk-card-small', 
+				'uk-card-body', 
+				'uk-margin'
+			);
+		}
+		
+		let detailsInner = details.querySelector('.info-list.no-border > li:nth-child(5)');
+		if (typeof(detailsInner) !== 'undefined' && detailsInner !== null) {
+			detailsInner.classList.add('uk-width-1-1@m');
+		}
 		
 		
 		/**
 		 * modify property boxes
 		 */
 		let property = details.getElementsByClassName('property-box');
-		let propTitle = details.getElementsByClassName('pb-title');
+		property[0].classList.add('uk-margin-small-top');
 		for (let i=0; i < property.length; i++) {
 			property[i].classList.add(
-				'uk-text-lead', 
-				'uk-text-center', 
-				'uk-card', 
-				'uk-card-default', 
-				'uk-card-small', 
-				'uk-card-body'
+				'uk-flex',
+				'uk-flex-middle',
+				'uk-margin-small'
 			);
 		}
+		
+		let propTitle = details.getElementsByClassName('pb-title');
 		for (let i=0; i < propTitle.length; i++)
 			propTitle[i].classList.add('uk-text-meta');
-		property[4].classList.add('uk-width-1-1');
 		
 		
 		/**
 		 * modify log description items
 		 */
 		let info1 = details.querySelectorAll('.info-list')[0];
+		info1.querySelectorAll('li')[2].classList.add('uk-text-truncate');
 		info1.classList.add(
 			'uk-grid', 
 			'uk-grid-collapse', 
 			'uk-width-1-1', 
-			'uk-child-width-1-2@m', 
-			'uk-card', 
-			'uk-card-default', 
-			'uk-card-small', 
-			'uk-card-body', 
-			'uk-margin'
+			'uk-child-width-1-3@m', 
+			// 'uk-card', 
+			// 'uk-card-default', 
+			// 'uk-card-small', 
+			// 'uk-card-body', 
+			'uk-margin-small'
 		);
 		
 		let info2 = details.querySelectorAll('.info-list')[1];
@@ -511,11 +633,12 @@ function addCSS(string) {
 			'uk-grid-collapse', 
 			'uk-width-1-1', 
 			'uk-child-width-1-2@m', 
-			'uk-card', 
-			'uk-card-default', 
-			'uk-card-small', 
-			'uk-card-body', 
-			'uk-margin'
+			// 'uk-card', 
+			// 'uk-card-default', 
+			// 'uk-card-small', 
+			// 'uk-card-body', 
+			'uk-margin-small',
+			'uk-hidden'
 		);
 		
 		
@@ -547,14 +670,13 @@ function addCSS(string) {
 		
 		// -- description wrapper
 		let descriptionWrapper = document.getElementById('details-description');
-		descriptionWrapper.classList.add('uk-margin');
+		descriptionWrapper.classList.add('uk-margin', 'uk-width-1-1');
 		
 		// -- description box
 		let description = document.getElementById('gen-descr');
 		description.classList.add(
 			'uk-card', 
 			'uk-card-default', 
-			'uk-card-small', 
 			'uk-card-body', 
 			'uk-width-1-1', 
 			'uk-margin'
@@ -594,55 +716,55 @@ function addCSS(string) {
 		/**
 		 * radialIndicator.js
 		 */
-		setTimeout(()=> {
-			let radialWrapper = document.getElementById('prog-bar');
+		// setTimeout(()=> {
+		// 	let radialWrapper = document.getElementById('prog-bar');
 				
-			let radialObj = radialIndicator(radialWrapper, {
-				barColor: {
-						0	: '#ff0000',
-						15	: '#f98fa2',
-						35	: '#f45884',
-						50	: '#f23e60',
-						75	: '#72cca8',
-						80	: '#49d1b1',
-						100	: '#32d296'
-				},
-				barWidth	:	4,
-				fontWeight	:	'normal',
-				frameTime	:	20,
-				initValue	:	0,
-				percentage	:	true
-			});
+		// 	let radialObj = radialIndicator(radialWrapper, {
+		// 		barColor: {
+		// 				0	: '#ff0000',
+		// 				15	: '#f98fa2',
+		// 				35	: '#f45884',
+		// 				50	: '#f23e60',
+		// 				75	: '#72cca8',
+		// 				80	: '#49d1b1',
+		// 				100	: '#32d296'
+		// 		},
+		// 		barWidth	:	4,
+		// 		fontWeight	:	'normal',
+		// 		frameTime	:	20,
+		// 		initValue	:	0,
+		// 		percentage	:	true
+		// 	});
 			
-			// -- let radialWrapper = document.getElementById('prog-bar');
-			let radialProg = radialWrapper.querySelector('.prog');
-			radialProg.id = 'task-progress';
-			radialProg.style.display = 'none';
+		// 	// -- let radialWrapper = document.getElementById('prog-bar');
+		// 	let radialProg = radialWrapper.querySelector('.prog');
+		// 	radialProg.id = 'task-progress';
+		// 	radialProg.style.display = 'none';
 			
-			let task_progress = document.getElementById('task-progress');
+		// 	let task_progress = document.getElementById('task-progress');
 			
-			// -- https://css-tricks.com/snippets/javascript/strip-whitespace-from-string/
-			radialProg = task_progress.innerHTML.replace('%', '').replace(/\s+/g, '');
+		// 	// -- https://css-tricks.com/snippets/javascript/strip-whitespace-from-string/
+		// 	radialProg = task_progress.innerHTML.replace('%', '').replace(/\s+/g, '');
 			
-			task_progress.setAttribute('data-progress', radialProg);
+		// 	task_progress.setAttribute('data-progress', radialProg);
 			
-			if (radialProg.innerHTML === '100%') { let radialProg = radialProg.innerHTML = '100'; }
-			if (radialProg.innerHTML === '90%') { let radialProg = radialProg.innerHTML = '90'; }
-			if (radialProg.innerHTML === '80%') { let radialProg = radialProg.innerHTML = '80'; }
-			if (radialProg.innerHTML === '70%') { let radialProg = radialProg.innerHTML = '70'; }
-			if (radialProg.innerHTML === '60%') { let radialProg = radialProg.innerHTML = '60'; }
-			if (radialProg.innerHTML === '50%') { let radialProg = radialProg.innerHTML = '50'; }
-			if (radialProg.innerHTML === '40%') { let radialProg = radialProg.innerHTML = '40'; }
-			if (radialProg.innerHTML === '30%') { let radialProg = radialProg.innerHTML = '30'; }
-			if (radialProg.innerHTML === '20%') { let radialProg = radialProg.innerHTML = '20'; }
-			if (radialProg.innerHTML === '10%') { let radialProg = radialProg.innerHTML = '10'; }
-			if (radialProg.innerHTML === '0%') { let radialProg = radialProg.innerHTML = '0'; }
+		// 	if (radialProg.innerHTML === '100%') { let radialProg = radialProg.innerHTML = '100'; }
+		// 	if (radialProg.innerHTML === '90%') { let radialProg = radialProg.innerHTML = '90'; }
+		// 	if (radialProg.innerHTML === '80%') { let radialProg = radialProg.innerHTML = '80'; }
+		// 	if (radialProg.innerHTML === '70%') { let radialProg = radialProg.innerHTML = '70'; }
+		// 	if (radialProg.innerHTML === '60%') { let radialProg = radialProg.innerHTML = '60'; }
+		// 	if (radialProg.innerHTML === '50%') { let radialProg = radialProg.innerHTML = '50'; }
+		// 	if (radialProg.innerHTML === '40%') { let radialProg = radialProg.innerHTML = '40'; }
+		// 	if (radialProg.innerHTML === '30%') { let radialProg = radialProg.innerHTML = '30'; }
+		// 	if (radialProg.innerHTML === '20%') { let radialProg = radialProg.innerHTML = '20'; }
+		// 	if (radialProg.innerHTML === '10%') { let radialProg = radialProg.innerHTML = '10'; }
+		// 	if (radialProg.innerHTML === '0%') { let radialProg = radialProg.innerHTML = '0'; }
 			
-			setTimeout(()=> {
-				let radialValue = radialProg;
-				radialObj.animate(radialValue);
-			}, 2500);
-		}, 300);
+		// 	setTimeout(()=> {
+		// 		let radialValue = radialProg;
+		// 		radialObj.animate(radialValue);
+		// 	}, 2500);
+		// }, 300);
 	}
 })();
 
@@ -811,13 +933,14 @@ function addCSS(string) {
 		 * @link https://stackoverflow.com/a/22782542/8296677
 		 */
 		$('#log-contacts').find('ul').each(function() {
-		   var txt = $("li", this).text();
-		   if(txt.length <= 0) {
-		      $(this).hide();
-			  $(this).parent().addClass('empty');
-		   }
+			var txt = $("li", this).text();
+			if(txt.length <= 0) {
+				$(this).hide();
+				$(this).parent().addClass('empty');
+			}
 		});
-						
+		
+		
 		
 		/**
 		 * New log progress control
@@ -979,6 +1102,125 @@ function addCSS(string) {
 
 
 /**
+ * @name trafficManager
+ * @description Massive traffic manager view ...
+ * @memberof pageSpecifics
+ * @memberof taskLogs
+ */
+(()=> {
+	let element = document.querySelector('body.traffic-manager');
+	if (typeof(element) !== 'undefined' && element !== null) {
+		document.getElementById('content').classList.add('uk-container', 'uk-padding');
+		
+		// -- change table section header elem styles
+		let h1s = document.getElementsByTagName('h1');
+		for (let i=0; i < h1s.length; i++) {
+			h1s[i].classList.add('uk-h5', 'uk-display-block', 'uk-float-left');
+		}
+		
+		// -- change team section collapse buttons
+		let collapseButtons = document.querySelectorAll('.expand-collapse-team');
+		for (let i=0; i < collapseButtons.length; i++) {
+			collapseButtons[i].classList.add('uk-h5', 'uk-float-right');
+		}
+		
+		// -- apply uk-table classes
+		let tables = document.getElementsByTagName('table');
+		for (let i=0; i < tables.length; i++) {
+			tables[i].classList.remove('dbtable', 'dbhover');
+			applyFrameworkStyles('uk-table', tables[i]);
+			applyFrameworkStyles('uk-card', tables[i]);
+			// tables[i].classList.add('uk-margin-large-bottom');
+		}
+		
+		// -- apply uk-text-meta classes to table heads
+		let heads = document.getElementsByTagName('thead');
+		for (let i=0; i < heads.length; i++) {
+			heads[i].classList.add('uk-text-meta');
+		}
+		
+		// -- add IDs to each table & header elem
+		document.querySelectorAll('table')[0].id			=	'tickets_dev';
+		document.querySelectorAll('h1')[0].id				=	'tickets_dev-header';
+		document.querySelectorAll('table')[1].id			=	'tickets_design';
+		document.querySelectorAll('h1')[1].id				=	'tickets_design-header';
+		document.querySelectorAll('table')[2].id			=	'tasks_dev';
+		document.querySelectorAll('h1')[2].id				=	'tasks_dev-header';
+		document.querySelectorAll('table')[3].id			=	'tasks_design';
+		document.querySelectorAll('h1')[3].id				=	'tasks_design-header';
+		document.querySelectorAll('table')[4].id			=	'tasks_devOps';
+		document.querySelectorAll('h1')[4].id				=	'tasks_devOps-header';
+		
+		document.querySelectorAll('.team-section')[0].id	=	'queue_UI';
+		document.querySelectorAll('h1')[5].id				=	'queue_UI-header';
+		document.querySelectorAll('.team-section')[1].id	=	'queue_ENG';
+		document.querySelectorAll('h1')[6].id				=	'queue_ENG-header';
+		document.querySelectorAll('.team-section')[2].id	=	'queue_design';
+		document.querySelectorAll('h1')[7].id				=	'queue_design-header';
+		document.querySelectorAll('.team-section')[3].id	=	'queue_QA';
+		document.querySelectorAll('h1')[8].id				=	'queue_QA-header';
+		
+		document.querySelectorAll('.team-section')[4].id	=	'team_Gryphon';
+		document.querySelectorAll('h1')[9].id				=	'team_Gryphon-header';
+		document.querySelectorAll('.team-section')[5].id	=	'team_Orca';
+		document.querySelectorAll('h1')[10].id				=	'team_Orca-header';
+		document.querySelectorAll('.team-section')[6].id	=	'team_Cheetah';
+		document.querySelectorAll('h1')[11].id				=	'team_Cheetah-header';
+		document.querySelectorAll('.team-section')[7].id	=	'team_PolarBear';
+		document.querySelectorAll('h1')[12].id				=	'team_PolarBear-header';
+		document.querySelectorAll('.team-section')[8].id	=	'team_Phoenix';
+		document.querySelectorAll('h1')[13].id				=	'team_Phoenix-header';
+		document.querySelectorAll('.team-section')[9].id	=	'team_Sloth';
+		document.querySelectorAll('h1')[14].id				=	'team_Sloth-header';
+		document.querySelectorAll('.team-section')[10].id	=	'team_Ermine';
+		document.querySelectorAll('h1')[15].id				=	'team_Ermine-header';
+		document.querySelectorAll('.team-section')[11].id	=	'team_Echo';
+		document.querySelectorAll('h1')[16].id				=	'team_Echo-header';
+		
+		// -- control visibility
+		setTimeout(()=> {
+			// -- tickets_design
+			document.getElementById('tickets_design').style.display = 'none';
+			document.getElementById('tickets_design-header').classList.remove('uk-display-block');
+			document.getElementById('tickets_design-header').style.display = 'none';
+			
+			// -- tasks_design
+			document.getElementById('tasks_design').style.display = 'none';
+			document.getElementById('tasks_design-header').classList.remove('uk-display-block');
+			document.getElementById('tasks_design-header').style.display = 'none';
+			
+			// -- tasks_devOps
+			document.getElementById('tasks_devOps').style.display = 'none';
+			document.getElementById('tasks_devOps-header').classList.remove('uk-display-block');
+			document.getElementById('tasks_devOps-header').style.display = 'none';
+			
+			// -- empty tables...
+			let teamSections = document.querySelectorAll('.team-section > table:nth-child(1)');
+			for (let i=0; i < teamSections.length; i++) teamSections[i].style.display = 'none';
+		}, 400);
+		
+		// -- collapse all individual tables
+		let collapsers = document.querySelectorAll('.teamtable tbody');
+		for (let i=0; i < collapsers.length; i++) collapsers[i].style.display = 'none';
+		
+		// -- individual table adjustments
+		setTimeout(()=> {
+			let tickets = document.getElementById('tickets_dev');
+			tickets.querySelector('thead > tr > th:nth-child(1)').style.display = 'none';
+			tickets.querySelector('thead > tr > th:nth-child(2)').classList.add('uk-width-auto');
+			tickets.querySelector('thead > tr > th:nth-child(3)').classList.add('uk-table-expand');
+			tickets.querySelector('thead > tr > th:nth-child(4)').classList.add('uk-table-shrink');
+			tickets.querySelector('thead > tr > th:nth-child(5)').classList.add('uk-table-shrink');
+			tickets.querySelector('thead > tr > th:nth-child(6)').classList.add('uk-table-shrink');
+			tickets.querySelector('thead > tr > th:nth-child(7)').classList.add('uk-table-shrink');
+			tickets.querySelector('thead > tr > th:nth-child(8)').classList.add('uk-table-shrink');
+		}, 400);
+	}
+})();
+
+
+
+/**
  * @name metaReponsive
  * @description Add reposive meta tag to document.head;
  */
@@ -1080,7 +1322,11 @@ function addCSS(string) {
 		tasks.parentNode.id = 'sidebar_allTasks';
 		tasks.parentNode.classList.add('uk-animation-fade');
 		
-		let clients = primary.querySelector('li:nth-child(6) > a');
+		let tickets = primary.querySelector('li:nth-child(6) > a');
+		tickets.parentNode.id = 'sidebar_tickets';
+		tickets.parentNode.classList.add('uk-animation-fade');
+		
+		let clients = primary.querySelector('li:nth-child(7) > a');
 		clients.parentNode.id = 'sidebar_clients';
 		clients.parentNode.classList.add('uk-animation-fade');
 		
@@ -1127,6 +1373,11 @@ function addCSS(string) {
 		tasks_icon.classList.add('material-icons');
 		tasks.appendChild(tasks_icon);
 		
+		let tickets_icon = document.createElement('i');
+		tickets_icon.innerHTML = 'list_alt';
+		tickets_icon.classList.add('material-icons');
+		tickets.appendChild(tickets_icon);
+		
 		let clients_icon = document.createElement('i');
 		clients_icon.innerHTML = 'folder_shared';
 		clients_icon.classList.add('material-icons');
@@ -1172,6 +1423,26 @@ function addCSS(string) {
 		let name		= document.getElementById('name-filter');
 		let time		= document.getElementById('time-logged');
 		let	byFilter	= document.getElementById('to-by-filter');
+		
+		
+		// -- remove "Show tasks for" innerText and the <br> elem.
+		let showItems = document.getElementById('show-items');
+		if (typeof(showItems) !== 'undefined' && showItems !== null) {
+			showItems.querySelector('#dashboarduserselect').classList.add('uk-form-small');
+			showItems.querySelector('br').remove();
+			
+			let showIemsChild = showItems.firstChild, nextChild;
+			setTimeout(()=> {
+				while (showIemsChild) {
+				    nextChild = showIemsChild.nextSibling;
+				    if (showIemsChild.nodeType == 3) {
+				        showItems.removeChild(showIemsChild);
+				    }
+				    showIemsChild = nextChild;
+				}
+			}, 300);
+		}
+		
 		
 		branding.classList.add(
 			'uk-navbar', 
@@ -1249,8 +1520,8 @@ function addCSS(string) {
 	if (typeof(element) !== 'undefined' && element !== null) {
 		let headlines = document.getElementById('headlines');
 		
-		headlines.classList.add('uk-section', 'uk-text-center');
-		headlines.parentNode.classList.add('uk-background-primary', 'uk-margin-large-bottom');
+		headlines.parentNode.classList.add('uk-background-primary', 'uk-margin-large-bottom', 'uk-width-1-1');
+		headlines.classList.add('uk-section', 'uk-text-center', 'uk-width-1-3', 'uk-margin-auto');
 		headlines.querySelector('span').classList.add('uk-text-lead', 'uk-light');
 	}
 })();
@@ -1686,7 +1957,8 @@ setTimeout(()=> {
 			'uk-card-default', 
 			'uk-card-small', 
 			'uk-card-body', 
-			'uk-margin'
+			'uk-margin',
+			'uk-width-1-1'
 		);
 		
 		
@@ -1740,6 +2012,42 @@ setTimeout(()=> {
 		let pto = document.getElementById('pto');
 		pto.classList.add('uk-card', 'uk-card-default', 'uk-card-small', 'uk-card-body', 'uk-margin');
 		
+		let h3s = document.querySelectorAll('h3');
+		for (let i=0; i < h3s.length; i++)
+			h3s[i].classList.add('uk-text-meta', 'uk-margin-small-bottom');
+		
+		
+		// days off
+		document.getElementById('days-off-wrapper').classList.add('uk-margin');
+		let daysOff0 = document.querySelectorAll('#days-off')[0];
+		let daysOff1 = document.querySelectorAll('#days-off')[1];
+		daysOff0.classList.add('uk-card', 'uk-card-primary', 'uk-card-small', 'uk-card-body', 'uk-margin', 'uk-margin-remove-top');
+		daysOff1.classList.add('uk-card', 'uk-card-primary', 'uk-card-small', 'uk-card-body', 'uk-margin', 'uk-margin-remove-top');
+		
+		let dayOff = document.querySelectorAll('.day-off');
+		for (let i=0; i < dayOff.length; i++) {
+			dayOff[i].querySelector('h4').classList.add('uk-text-lead');
+			dayOff[i].querySelector('p').classList.add('uk-text-meta');
+		}
+		
+		// days off => holiday icons
+		// days off => holiday icons => memorial day
+		// let memorialDay = daysOff.querySelectorAll('.day-off')[0];
+		// memorialDay.id = 'memorialDay';
+		// let memorialDay_icon = document.createElement('div');
+		// memorialDay_icon.innerHTML = `<img src="http://bento.cdn.pbs.org/hostedbento-prod/filer_public/cci-nmdc-static/images/basic-pages/icon-support-troops.png" />`;
+		// memorialDay.prepend(memorialDay_icon);
+		
+		// days off => holiday icons => independence day
+		// let independenceDay = daysOff.querySelectorAll('.day-off')[1];
+		// independenceDay.id = 'independenceDay';
+		// let independenceDay_icon = document.createElement('div');
+		// independenceDay_icon.innerHTML = `<img src="https://cdn2.iconfinder.com/data/icons/waving-world-flags/512/USA-512.png" />`;
+		// independenceDay.prepend(independenceDay_icon);
+		
+		
+		
+		
 		document.getElementById('customize-header').style.display = 'none';
 		let user_block = document.querySelector('.user-block');
 		user_block.classList.add('uk-card', 'uk-card-default', 'uk-card-small', 'uk-card-body', 'uk-margin');
@@ -1754,6 +2062,151 @@ setTimeout(()=> {
 		
 		// let myinterface = document.getElementById('myinterface');
 		// myinterface.classList.add('uk-switcher', 'switcher-container');
+		
+		let cancel = document.querySelectorAll('.option-button .btn')[0];
+		cancel.classList.add('uk-button', 'uk-button-default');
+		
+		let save = document.querySelectorAll('.option-button .btn')[1];
+		save.classList.add('uk-button', 'uk-button-primary');
+		
+		let ptoWrap = document.querySelectorAll('div.pto-date')[0];
+		// ptoWrap.classList.add('uk-card', 'uk-card-default', 'uk-card-small', 'uk-card-body', 'uk-margin');
+		ptoWrap.setAttribute('uk-grid', '');
+		ptoWrap.classList.add('uk-grid', 'uk-grid-small', 'uk-child-width-1-2@s');
+		ptoWrap.querySelectorAll('.field')[0].classList.add('uk-margin-top');
+		
+		let lists = document.querySelectorAll('.select-list');
+		for (let i=0; i < lists.length; i++) {
+			lists[i].setAttribute('uk-grid', '');
+			lists[i].classList.add(
+				'uk-grid', 
+				'uk-grid-collapse', 
+				'uk-child-width-1-2@s', 
+				'uk-child-width-1-4@m'
+			);
+		}
+	}
+})();
+
+
+
+/**
+ * @name imageWrap
+ * @description Control images inside task log comments.
+ * @memberof taskLogs
+ * @memberof pageSpecifics
+ */
+(()=> {
+	let element = document.querySelector('.image-wrap');
+	if (typeof(element) !== 'undefined' && element !== null) {
+		let link = document.querySelectorAll('.image-wrap > a');
+		for (let i=0; i < link.length; i++) {
+			link[i].classList.add('uk-box-shadow-medium');
+			link[i].style.display = 'inline-block';
+			link[i].style.border = '1px solid #ddd';
+			let value = link[i].href;
+			link[i].querySelector('img').src = value;
+		}
+	}
+})();
+
+
+
+/**
+ * @name clientList
+ * @description Format the client list view
+ * @memberof pageSpecifics
+ */
+(()=> {
+	let element = document.querySelector('table[summary="Client list"]');
+	if (typeof(element) !== 'undefined' && element !== null) {
+		// -- add body class selector
+		document.body.classList.add('client-list-tables');
+		
+		// -- apply container
+		document.getElementById('content').classList.add('uk-container', 'uk-padding');
+		
+		// -- apply uk-table classes
+		let tables = document.getElementsByTagName('table');
+		for (let i=0; i < tables.length; i++) {
+			tables[i].classList.remove('dbtable', 'dbhover');
+			applyFrameworkStyles('uk-table', tables[i]);
+			applyFrameworkStyles('uk-card', tables[i]);
+			tables[i].classList.add('uk-margin-remove');
+		}
+		
+		// -- adjust thead widths
+		document.querySelector('thead > tr > th:nth-child(1)').classList.add('uk-table-expand');
+		document.querySelector('thead > tr > th:nth-child(2)').classList.add('uk-table-shrink');
+		document.querySelector('thead > tr > th:nth-child(3)').classList.add('uk-table-shrink');
+		document.querySelector('thead > tr > th:nth-child(4)').classList.add('uk-table-shrink');
+		document.querySelector('thead > tr > th:nth-child(5)').classList.add('uk-table-shrink');
+		document.querySelector('thead > tr > th:nth-child(6)').classList.add('uk-table-shrink');
+		document.querySelector('thead > tr > th:nth-child(7)').classList.add('uk-table-shrink');
+	}
+})();
+
+
+
+/**
+ * @name editTask
+ * @description Edit view of individual tasks.
+ * @memberof taskLogs
+ * @memberof pageSpecifics
+ */
+(()=> {
+	let element = document.querySelector('#editform[action="/tasks.php"]');
+	if (typeof(element) !== 'undefined' && element !== null) {
+		/**
+		 * Turn all checkbox groups into uk-accordion elems
+		 */
+		let contacts = document.getElementById('data-hr');
+		contacts.classList.add('uk-accordion');
+		contacts.setAttribute('uk-accordion', '');
+		contacts.classList.add('uk-grid', 'uk-grid-small', 'uk-child-width-1-2@m');
+		contacts.setAttribute('uk-grid', '');
+		
+		// -- add accordion classes
+		let contact = contacts.querySelectorAll('.group');
+		for (let i=0; i < contact.length; i++) {
+			// contact[i].classList.add('uk-box-shadow-small');
+			contact[i].querySelector('div').classList.add('uk-accordion-title', 'uk-background-muted', 'uk-box-shadow-small');
+			contact[i].querySelector('ul').classList.add('uk-accordion-content', 'uk-grid', 'uk-grid-collapse', 'uk-child-width-1-2@s', 'uk-padding-small', 'uk-box-shadow-small');
+			contact[i].querySelector('ul').setAttribute('uk-grid', '');
+		}
+		
+		// -- find any checked items and highlight parent accordion
+		let checked = contacts.querySelectorAll('input[checked="checked"]');
+		for (let i=0; i < checked.length; i++) {
+			checked[i].parentNode.parentNode.previousElementSibling.classList.remove('uk-background-muted');
+			checked[i].parentNode.parentNode.previousElementSibling.classList.add('uk-background-primary');
+		}
+		
+		let checkboxes = contacts.querySelectorAll('input') && contacts.querySelectorAll('label');
+		for (let i=0; i < checkboxes.length; i++) {
+			checkboxes[i].addEventListener('click', function(e) {
+				if (this.parentNode.parentNode.previousElementSibling.classList.contains('uk-background-muted')) {
+					this.parentNode.parentNode.previousElementSibling.classList.remove('uk-background-muted');
+					this.parentNode.parentNode.previousElementSibling.classList.add('uk-background-primary');
+				} else {
+					this.parentNode.parentNode.previousElementSibling.classList.add('uk-background-muted');
+					this.parentNode.parentNode.previousElementSibling.classList.remove('uk-background-primary');
+				}
+			});
+		}
+		
+		// -- hide empty groups
+		$('#data-hr').find('ul').each(function() {
+			var txt = $("li", this).text();
+			if(txt.length <= 0) {
+				$(this).hide();
+				$(this).parent().addClass('empty');
+			}
+		});
+		
+		
+		
+		// -- wrap first two fields into grid
 	}
 })();
 
@@ -1825,31 +2278,35 @@ setTimeout(()=> {
 										Team
 									</label>
 									<label for="sidebar_traffic">
-										<input type="checkbox" name="sidebar_traffic" value="My Tasks" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_traffic" value="Traffic Manager" class="uk-checkbox" checked> 
 										Traffic Manager
 									</label>
 									<label for="sidebar_projects">
-										<input type="checkbox" name="sidebar_projects" value="Team" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_projects" value="Projects" class="uk-checkbox" checked> 
 										Projects
 									</label>
 									<label for="sidebar_allTasks">
-										<input type="checkbox" name="sidebar_allTasks" value="My Tasks" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_allTasks" value="All Tasks" class="uk-checkbox" checked> 
 										Tasks
 									</label>
+									<label for="sidebar_tickets">
+										<input type="checkbox" name="sidebar_tickets" value="Tickets" class="uk-checkbox" checked> 
+										Tickets
+									</label>
 									<label for="sidebar_clients">
-										<input type="checkbox" name="sidebar_clients" value="Team" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_clients" value="Clients" class="uk-checkbox" checked> 
 										Clients
 									</label>
 									<label for="sidebar_account">
-										<input type="checkbox" name="sidebar_account" value="My Tasks" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_account" value="My Account" class="uk-checkbox" checked> 
 										Account
 									</label>
 									<label for="sidebar_resources">
-										<input type="checkbox" name="sidebar_resources" value="Team" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_resources" value="Resources" class="uk-checkbox" checked> 
 										Resources
 									</label>
 									<label for="sidebar_issues">
-										<input type="checkbox" name="sidebar_issues" value="My Tasks" class="uk-checkbox" checked> 
+										<input type="checkbox" name="sidebar_issues" value="Issue Tracker" class="uk-checkbox" checked> 
 										Issue Tracker
 									</label>
 								</div>
@@ -2008,6 +2465,27 @@ setTimeout(()=> {
 				
 				// -- read and apply localStorage logic
 				let setting = localStorage.getItem('sidebar_allTasks');
+				if (setting === 'display-none') {
+					element.style.display = 'none';
+					trigger.removeAttribute('checked');
+				}
+			})();
+			((sidebar_tickets)=> {
+				let element = document.getElementById('sidebar_tickets');
+				let trigger = document.querySelector('input[name="sidebar_tickets"]');
+				
+				trigger.addEventListener('click', ()=> {
+					if (trigger.checked !== true) {
+						element.style.display = 'none';
+						localStorage.setItem('sidebar_tickets', 'display-none');
+					} else {
+						element.style.display = 'list-item';
+						localStorage.removeItem('sidebar_tickets');
+					}
+				});
+				
+				// -- read and apply localStorage logic
+				let setting = localStorage.getItem('sidebar_clients');
 				if (setting === 'display-none') {
 					element.style.display = 'none';
 					trigger.removeAttribute('checked');
